@@ -6,11 +6,13 @@ exports.seed = function(knex) {
       notes:
         'Repo URL: https://github.com/LambdaSchool/Sprint-Challenge-Node-Express',
     },
+
     {
       project_id: 1,
       description: 'Install Dependencies',
       notes: 'Remember to cd into the folder where the Project was cloned',
     },
+    
     {
       project_id: 1,
       description: 'Design and Build API Endpoints',
