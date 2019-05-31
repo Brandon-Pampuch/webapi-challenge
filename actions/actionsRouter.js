@@ -22,7 +22,7 @@ router.post("/", validateProject, (req, res) => {
     const action = actionsdb.insert(req.body);
     
     res.status(201).json(action);
-  } catch (error) {
+  }catch (error) {
     console.log(error);
     res.status(500).json({ message: "could not add action" });
   }
