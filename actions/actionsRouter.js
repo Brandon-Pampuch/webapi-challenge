@@ -3,9 +3,10 @@ const projectsdb = require("../data/helpers/projectModel");
 
 const router = require("express").Router();
 
+
 router.get("/:id", (req, res) => {
-  const action = actionsdb
-    .get(req.params.id)
+  const actions = projectsdb
+    .getProjectActions(req.params.id)
     .then(actions => {
       res.status(200).json({ message: "actions recieved", actions });
     })
@@ -15,9 +16,11 @@ router.get("/:id", (req, res) => {
     });
 });
 //add middleware
-router.post("/:id", validateProject, (req, res) => {
+router.post("/", validateProject, (req, res) => {
   try {
-    const action = actionsdb.insert(project);
+  
+    const action = actionsdb.insert(req.body);
+    
     res.status(201).json(action);
   } catch (error) {
     console.log(error);
@@ -54,9 +57,8 @@ router.delete("/:id", async (req, res) => {
 });
 
 async function validateProject(req, res, next) {
-  const project = await projectsdb.getProjectActions(req.params.id);
+  const project = await projectsdb.get(req.body.project_id);
   if (project) {
-    req.project = project;
     next();
   } else {
     res.status(400).json({ message: "invalid project" });
